@@ -1,0 +1,22 @@
+---
+/**
+ * Divider — thin architectural rule.
+ */
+type Tone = 'subtle' | 'violet' | 'neon' | 'warm';
+
+interface Props {
+	tone?: Tone;
+	class?: string;
+}
+
+const { tone = 'subtle', class: className } = Astro.props;
+
+const tones = {
+	subtle: 'border-border',
+	violet: 'border-border-violet',
+	neon: 'border-border-neon',
+	warm: 'border-warm/50',
+} as const;
+---
+
+<hr class:list={['m-0 w-full border-0 border-t', tones[tone], className]} />

@@ -1,0 +1,40 @@
+---
+/**
+ * Container — cinematic width rails with responsive page padding.
+ * Prefer wide media / content rails over a tight SaaS centered column.
+ */
+import type { HTMLAttributes } from 'astro/types';
+
+type Width = 'content' | 'reading' | 'wide' | 'full';
+
+interface Props extends HTMLAttributes<'div'> {
+	as?: 'div' | 'section' | 'article' | 'main' | 'header' | 'footer' | 'nav';
+	width?: Width;
+	class?: string;
+}
+
+const {
+	as: Tag = 'div',
+	width = 'content',
+	class: className,
+	...rest
+} = Astro.props;
+
+const widthClass = {
+	content: 'max-w-content',
+	reading: 'max-w-reading',
+	wide: 'max-w-wide',
+	full: 'max-w-full',
+}[width];
+---
+
+<Tag
+	class:list={[
+		'mx-auto w-full px-[var(--spacing-page-x-mobile)] md:px-[var(--spacing-page-x-desktop)]',
+		widthClass,
+		className,
+	]}
+	{...rest}
+>
+	<slot />
+</Tag>

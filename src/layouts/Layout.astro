@@ -1,23 +1,97 @@
+---
+/**
+ * Layout shell — design system + page grain + basic SEO.
+ */
+import '../styles/global.css';
+import site from '../data/site';
+import { assets } from '../data/assets';
+
+interface Props {
+	title?: string;
+	description?: string;
+	canonicalPath?: string;
+}
+
+const { title = site.seo.title, description = site.seo.description, canonicalPath = '/' } =
+	Astro.props;
+
+const siteUrl = Astro.site ? new URL(Astro.site).origin : Astro.url.origin;
+const canonicalUrl = new URL(canonicalPath, `${siteUrl}/`).href;
+const ogImageUrl = new URL(site.seo.ogImage, `${siteUrl}/`).href;
+const logoUrl = new URL(assets.brand.logo, `${siteUrl}/`).href;
+
+const jsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'EntertainmentBusiness',
+	name: site.brand.name,
+	alternateName: `${site.brand.name} ${site.brand.descriptor}`,
+	description: description,
+	url: siteUrl,
+	image: ogImageUrl,
+	logo: logoUrl,
+	address: {
+		'@type': 'PostalAddress',
+		addressLocality: site.location.city,
+		addressRegion: site.location.state,
+		addressCountry: 'US',
+	},
+	areaServed: {
+		'@type': 'City',
+		name: `${site.location.city}, ${site.location.stateFull}`,
+	},
+	knowsAbout: [
+		'Kava lounge',
+		'Kratom lounge',
+		'Live music',
+		'Arcade',
+		'Merchandise',
+		'Kava mocktails',
+		'Kratom tea',
+		'Kava ice cream',
+	],
+};
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<meta
+			name="keywords"
+			content="The Batcave, kava lounge, kratom lounge, Sanford FL, live music, vintage arcade, kava mocktails, kratom tea, merchandise store"
+		/>
+		<link rel="canonical" href={canonicalUrl} />
+		<meta name="robots" content="index, follow" />
+		<meta name="theme-color" content="#08070B" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+
+		<link rel="icon" type="image/svg+xml" href="/assets/favicon/favicon.svg" />
+		<link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon/favicon-96x96.png" />
+		<link rel="shortcut icon" href="/assets/favicon/favicon.ico" />
+		<link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png" />
+		<link rel="manifest" href="/assets/favicon/site.webmanifest" />
+
+		<meta property="og:type" content="website" />
+		<meta property="og:locale" content="en_US" />
+		<meta property="og:site_name" content={site.brand.name} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonicalUrl} />
+		<meta property="og:image" content={ogImageUrl} />
+		<meta property="og:image:alt" content={`${site.brand.name} — ${site.brand.descriptor} in ${site.location.display}`} />
+
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImageUrl} />
+
+		<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 	</head>
-	<body>
+	<body class="bg-void text-fg antialiased">
+		<div class="page-grain" aria-hidden="true"></div>
 		<slot />
 	</body>
 </html>
-
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>

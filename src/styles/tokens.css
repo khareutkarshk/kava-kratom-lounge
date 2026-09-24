@@ -1,0 +1,127 @@
+/*
+  The Batcave — design tokens
+  Dark-first underground neon lair system.
+  Neon is accent (~6–10% of the visual field), not background.
+*/
+
+@theme {
+	/* —— Core palette —— */
+	--color-obsidian: #08070b;
+	--color-cave: #120d18;
+	--color-plum: #241032;
+	--color-violet: #8b2cff;
+	--color-magenta: #e83dff;
+	--color-amber: #d6a84a;
+	--color-bone: #e7e1d7;
+	--color-smoke: #a8a1b0;
+
+	/* —— Semantic backgrounds —— */
+	--color-void: #08070b;
+	--color-surface: #120d18;
+	--color-elevated: #241032;
+
+	/* —— Semantic accents —— */
+	--color-primary: #8b2cff;
+	--color-secondary: #e83dff;
+	--color-warm: #d6a84a;
+
+	/* —— Semantic text —— */
+	--color-fg: #e7e1d7;
+	--color-fg-muted: #a8a1b0;
+
+	/* —— Borders (usable via border-border / border-border-violet / etc.) —— */
+	--color-border: rgb(231 225 215 / 0.12);
+	--color-border-strong: rgb(231 225 215 / 0.18);
+	--color-border-violet: rgb(139 44 255 / 0.42);
+	--color-border-neon: rgb(232 61 255 / 0.68);
+
+	/* —— Typography families —— */
+	--font-sans: 'Space Grotesk Variable', 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+	--font-display: 'Bebas Neue', ui-sans-serif, system-ui, sans-serif;
+	--font-decorative: 'Pirata One', ui-serif, Georgia, serif;
+
+	/* —— Type scale (semantic sizes) —— */
+	--text-display-xl: clamp(3.5rem, 8vw, 7.5rem);
+	--text-display-xl--line-height: 0.92;
+	--text-display-xl--letter-spacing: 0.02em;
+
+	--text-display-lg: clamp(2.75rem, 6vw, 5.5rem);
+	--text-display-lg--line-height: 0.94;
+	--text-display-lg--letter-spacing: 0.02em;
+
+	--text-display-md: clamp(2.25rem, 4.5vw, 4rem);
+	--text-display-md--line-height: 0.96;
+	--text-display-md--letter-spacing: 0.02em;
+
+	--text-heading-lg: clamp(1.75rem, 3vw, 2.5rem);
+	--text-heading-lg--line-height: 1.1;
+	--text-heading-lg--letter-spacing: 0.01em;
+
+	--text-heading-md: clamp(1.375rem, 2.2vw, 1.875rem);
+	--text-heading-md--line-height: 1.15;
+	--text-heading-md--letter-spacing: 0.01em;
+
+	--text-heading-sm: clamp(1.125rem, 1.6vw, 1.375rem);
+	--text-heading-sm--line-height: 1.25;
+	--text-heading-sm--letter-spacing: 0.01em;
+
+	--text-body-lg: 1.125rem;
+	--text-body-lg--line-height: 1.65;
+
+	--text-body: 1rem;
+	--text-body--line-height: 1.65;
+
+	--text-body-sm: 0.875rem;
+	--text-body-sm--line-height: 1.6;
+
+	--text-label: 0.8125rem;
+	--text-label--line-height: 1.35;
+	--text-label--letter-spacing: 0.04em;
+
+	--text-eyebrow: 0.75rem;
+	--text-eyebrow--line-height: 1.4;
+	--text-eyebrow--letter-spacing: 0.08em;
+
+	/* —— Radius: hard / lightly chamfered (use sparingly) —— */
+	--radius-none: 0;
+	--radius-sm: 2px;
+	--radius-md: 4px;
+	--radius-lg: 6px;
+
+	/* —— Glow shadows (restrained) —— */
+	--shadow-glow-violet-subtle: 0 0 24px rgb(139 44 255 / 0.18);
+	--shadow-glow-violet: 0 0 28px rgb(139 44 255 / 0.35), 0 0 8px rgb(139 44 255 / 0.25);
+	--shadow-glow-magenta: 0 0 28px rgb(232 61 255 / 0.32), 0 0 8px rgb(232 61 255 / 0.2);
+	--shadow-glow-amber: 0 0 24px rgb(214 168 74 / 0.28), 0 0 6px rgb(214 168 74 / 0.18);
+
+	/* —— Layout widths —— */
+	--container-content: 72rem; /* ~1152px — primary content rail */
+	--container-reading: 42rem; /* ~672px — long-form reading */
+	--container-wide: 90rem; /* ~1440px — cinematic / media */
+	--container-full: 100%;
+
+	/*
+	  Spacing rhythm (Tailwind default --spacing = 4px):
+	  1=4, 2=8, 3=12, 4=16, 6=24, 8=32, 12=48, 16=64, 24=96, 32=128, 40=160
+	*/
+
+	/* —— Page padding —— */
+	--spacing-page-x-mobile: 1.25rem; /* 20px */
+	--spacing-page-x-desktop: 3.5rem; /* 56px */
+
+	/* —— Section vertical rhythm —— */
+	--spacing-section-mobile: 4.5rem; /* 72px (within 56–88) */
+	--spacing-section-desktop: 8rem; /* 128px (within 96–160) */
+}
+
+/* Non-utility CSS variables (atmosphere, focus, selection) */
+:root {
+	--focus-ring: 0 0 0 2px var(--color-void), 0 0 0 4px var(--color-violet);
+	--selection-bg: rgb(139 44 255 / 0.35);
+	--selection-fg: var(--color-bone);
+
+	/* Atmosphere overlays — keep extremely subtle */
+	--noise-opacity: 0.035;
+	--vignette-opacity: 0.55;
+	--grain-opacity: 0.04;
+}

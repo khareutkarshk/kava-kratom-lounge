@@ -1,0 +1,199 @@
+---
+import site from '../../data/site';
+import { assets } from '../../data/assets';
+
+const { threshold } = site.scenes;
+---
+
+<section
+	id={threshold.id}
+	class="threshold"
+	aria-labelledby="threshold-heading"
+	x-data
+	x-intersect.once="$el.classList.add('is-inview')"
+>
+	<div class="threshold__atmosphere" aria-hidden="true">
+		<div class="threshold__stone"></div>
+		<div class="threshold__noise"></div>
+	</div>
+
+	<div class="threshold__stage">
+		<img
+			src={assets.decorative.frame}
+			alt=""
+			class="threshold__frame"
+			aria-hidden="true"
+			loading="lazy"
+			decoding="async"
+			width="1532"
+			height="1014"
+		/>
+
+		<div class="threshold__copy reveal" x-intersect.once="$el.classList.add('is-visible')">
+			<span class="threshold__glow" aria-hidden="true"></span>
+			<p class="threshold__title" id="threshold-heading">{threshold.eyebrow}</p>
+			<p class="threshold__body">{threshold.body}</p>
+		</div>
+	</div>
+</section>
+
+<style>
+	.threshold {
+		position: relative;
+		isolation: isolate;
+		padding: 3rem 1.15rem 3.5rem;
+		overflow: hidden;
+		background: var(--color-void);
+	}
+
+	.threshold__atmosphere {
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+		pointer-events: none;
+	}
+
+	.threshold__stone {
+		position: absolute;
+		inset: 0;
+		opacity: 0.22;
+		background-image: url('/assets/textures/stone.webp');
+		background-size: cover;
+		background-position: center;
+		mix-blend-mode: soft-light;
+	}
+
+	.threshold__noise {
+		position: absolute;
+		inset: 0;
+		opacity: 0.08;
+		background-image: url('/assets/textures/noise.webp');
+		background-size: 240px;
+		mix-blend-mode: overlay;
+	}
+
+	.threshold__stage {
+		position: relative;
+		z-index: 1;
+		width: 100%;
+		margin-inline: auto;
+		display: grid;
+		place-items: center;
+		padding: 2.85rem 1.4rem 3.1rem;
+	}
+
+	.threshold__frame {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: fill;
+		pointer-events: none;
+		opacity: 0.9;
+		filter: drop-shadow(0 0 18px rgb(139 44 255 / 0.4));
+	}
+
+	.threshold.is-inview .threshold__frame {
+		opacity: 0.96;
+	}
+
+	.threshold__copy {
+		position: relative;
+		z-index: 1;
+		width: 100%;
+		max-width: 34ch;
+		text-align: center;
+	}
+
+	.threshold__glow {
+		position: absolute;
+		left: 50%;
+		top: 45%;
+		z-index: -1;
+		width: 140%;
+		height: 130%;
+		translate: -50% -50%;
+		border-radius: 50%;
+		background:
+			radial-gradient(
+				ellipse at center,
+				rgb(139 44 255 / 0.32) 0%,
+				rgb(232 61 255 / 0.14) 38%,
+				transparent 68%
+			);
+		filter: blur(8px);
+		pointer-events: none;
+	}
+
+	.threshold__title {
+		margin: 0;
+		font-family: var(--font-display);
+		font-size: clamp(1.55rem, 6.5vw, 2.1rem);
+		letter-spacing: 0.14em;
+		line-height: 1;
+		color: var(--color-bone);
+		text-shadow:
+			0 0 18px rgb(232 61 255 / 0.45),
+			0 0 36px rgb(139 44 255 / 0.35);
+	}
+
+	.threshold__body {
+		margin: 1rem 0 0;
+		font-family: var(--font-sans);
+		font-size: clamp(0.95rem, 3.6vw, 1.05rem);
+		line-height: 1.65;
+		color: var(--color-bone);
+		text-shadow: 0 0 24px rgb(8 7 11 / 0.9);
+		text-wrap: pretty;
+	}
+
+	@media (min-width: 768px) {
+		.threshold {
+			padding: 5.5rem 3rem 6rem;
+		}
+
+		.threshold__stone {
+			opacity: 0.26;
+		}
+
+		.threshold__stage {
+			width: min(100%, 68rem);
+			aspect-ratio: 1532 / 1014;
+			padding: 0;
+		}
+
+		.threshold__frame {
+			object-fit: contain;
+			opacity: 0.85;
+			filter: drop-shadow(0 0 22px rgb(139 44 255 / 0.4));
+		}
+
+		.threshold__copy {
+			width: min(100%, 38rem);
+			max-width: none;
+			padding: 0 16% 0 18%;
+		}
+
+		.threshold__glow {
+			width: 120%;
+			height: 115%;
+			background:
+				radial-gradient(
+					ellipse at center,
+					rgb(139 44 255 / 0.38) 0%,
+					rgb(232 61 255 / 0.16) 42%,
+					transparent 70%
+				);
+		}
+
+		.threshold__title {
+			font-size: clamp(1.75rem, 4.5vw, 2.85rem);
+			letter-spacing: 0.2em;
+		}
+
+		.threshold__body {
+			margin-top: 1.35rem;
+			font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+		}
+	}
+</style>

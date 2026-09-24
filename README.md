@@ -1,46 +1,63 @@
-# Astro Starter Kit: Basics
+# The Batcave — Kava & Kratom Lounge
 
-```sh
-pnpm create astro@latest -- --template basics
-```
+Single-page marketing site foundation for an underground neon kava & kratom lounge.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+This repo currently contains **design-system initialization only** — no final page sections, hero, gallery, or marketing composition yet.
 
-## 🚀 Project Structure
+## Stack
 
-Inside of your Astro project, you'll see the following folders and files:
+- Astro 7 (static / server rendering preferred)
+- TypeScript
+- Tailwind CSS 4 (`@tailwindcss/vite`)
+- Alpine.js (`@astrojs/alpinejs`) — reserved for small interactions
+- `@lucide/astro` — UI icons only (not the brand mark)
+- Fontsource — Space Grotesk Variable, Bebas Neue, Pirata One
+
+No React / Vue / Svelte / Solid. No large UI kits.
+
+## Commands
+
+| Command | Action |
+| --- | --- |
+| `pnpm install` | Install dependencies |
+| `pnpm dev` | Dev server (`astro dev`) |
+| `pnpm build` | Production build |
+| `pnpm preview` | Preview production build |
+
+For background mode per project agents docs: `astro dev --background`.
+
+## Structure
 
 ```text
 /
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
+├── public/assets/            # Prepared media (see README + MANIFEST.json)
+│   ├── brand/
+│   ├── environment/
+│   ├── hero/
+│   ├── textures/
+│   └── decorative/
+│       ├── bat.webp / corner.webp / frame.webp
+│       ├── lines/*.webp      # cropped from lines_reference.png
+│       └── lines_reference.png
+├── src/assets/decorative/    # Astro <Image /> imports (+ index.ts)
+├── src/data/                 # site-content.json, site.ts, assets.ts
+├── src/components/ui/
+├── scripts/
+│   ├── prepare-assets.py
+│   └── crop-decorative-rasters.py
+├── astro.config.mjs
 └── package.json
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+Re-crop decorative lines after changing the reference sheet:
 
-## 🧞 Commands
+```sh
+pnpm prepare:decorative
+```
+## Design direction
 
-All commands are run from the root of the project, from a terminal:
+Dark-first “underground neon lair”: gothic, nocturnal, theatrical, retro arcade — neon as accent, not flood fill. Avoid SaaS glassmorphism and rainbow cyberpunk.
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+## Next stage
 
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Compose the actual single-page experience using these tokens and primitives.

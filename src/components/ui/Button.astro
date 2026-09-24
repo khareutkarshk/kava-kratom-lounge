@@ -1,0 +1,67 @@
+---
+/**
+ * Button — semantic primitives for the underground neon system.
+ * Variants: primary | secondary | ghost | icon
+ * Hover uses restrained glow, not large motion.
+ */
+import type { HTMLAttributes } from 'astro/types';
+
+type Variant = 'primary' | 'secondary' | 'ghost' | 'icon';
+type Size = 'sm' | 'md' | 'lg';
+
+type ButtonAttrs = HTMLAttributes<'button'>;
+type AnchorAttrs = HTMLAttributes<'a'>;
+
+type Props = {
+	variant?: Variant;
+	size?: Size;
+	class?: string;
+	href?: string;
+} & (ButtonAttrs | AnchorAttrs);
+
+const {
+	variant = 'primary',
+	size = 'md',
+	class: className,
+	href,
+	...rest
+} = Astro.props;
+
+const Tag = href ? 'a' : 'button';
+
+const base =
+	'inline-flex items-center justify-center gap-2 font-sans font-medium transition-[box-shadow,background-color,border-color,color,transform] duration-200 ease-out focus-visible:outline-none disabled:pointer-events-none disabled:opacity-40';
+
+const sizes = {
+	sm: 'min-h-9 px-3 text-sm',
+	md: 'min-h-11 px-5 text-sm',
+	lg: 'min-h-12 px-6 text-base',
+} as const;
+
+const iconSizes = {
+	sm: 'size-9 p-0',
+	md: 'size-11 p-0',
+	lg: 'size-12 p-0',
+} as const;
+
+const variants = {
+	primary:
+		'rounded-sm border border-border-neon bg-primary text-bone shadow-glow-violet-subtle hover:bg-secondary hover:shadow-glow-magenta active:translate-y-px',
+	secondary:
+		'rounded-sm border border-border bg-transparent text-fg hover:border-border-violet hover:bg-elevated/60 hover:shadow-glow-violet-subtle active:translate-y-px',
+	ghost:
+		'rounded-sm border border-transparent bg-transparent text-fg-muted hover:text-fg hover:bg-elevated/40',
+	icon:
+		'rounded-sm border border-border bg-transparent text-fg hover:border-border-violet hover:text-primary hover:shadow-glow-violet-subtle',
+} as const;
+
+const sizeClass = variant === 'icon' ? iconSizes[size] : sizes[size];
+---
+
+<Tag
+	class:list={[base, sizeClass, variants[variant], className]}
+	href={href}
+	{...rest}
+>
+	<slot />
+</Tag>

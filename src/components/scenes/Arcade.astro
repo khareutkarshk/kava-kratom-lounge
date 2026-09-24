@@ -1,0 +1,34 @@
+---
+import ArtImage from '../media/ArtImage.astro';
+import site from '../../data/site';
+import arcade from '../../assets/images/arcade.webp';
+
+const { arcade: scene } = site.scenes;
+const [titleLead, ...titleRest] = scene.heading.split(/\s+/);
+const titleMain = titleRest.join(' ') || scene.heading;
+---
+
+<section id={scene.id} class="arcade" aria-labelledby="arcade-heading" x-data>
+	<div class="arcade__brick" aria-hidden="true"></div>
+
+	<div class="arcade__stage scanlines reveal-image" x-intersect.once="$el.classList.add('is-visible')">
+		<ArtImage
+			src={arcade}
+			alt="Vintage-style arcade room with neon lighting"
+			aspectRatio="16 / 9"
+			mobileAspectRatio="3 / 4"
+			objectPosition="center"
+			mobileObjectPosition="30% center"
+			sizes="100vw"
+			widths={[640, 960, 1280, 1600, 1920]}
+		/>
+		<div class="arcade__glow" aria-hidden="true"></div>
+
+		<p class="arcade__plate">{scene.plate}</p>
+
+		<h2 id="arcade-heading" class="arcade__title">
+			<span class="arcade__title-lead">{titleLead}</span>
+			<span class="arcade__title-main">{titleMain}</span>
+		</h2>
+	</div>
+</section>

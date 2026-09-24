@@ -1,0 +1,117 @@
+{
+  "brand": {
+    "name": "The Batcave",
+    "nameDisplay": "THE BATCAVE",
+    "descriptor": "Kava & Kratom Lounge",
+    "descriptorDisplay": "KAVA & KRATOM LOUNGE",
+    "shortIntro": "A gothic underground lounge concept combining art, live music, vintage-style arcade entertainment, merchandise, signature kratom teas, signature kava mocktails, and kava-based ice cream."
+  },
+  "location": {
+    "city": "Sanford",
+    "state": "FL",
+    "stateFull": "Florida",
+    "display": "Sanford, Florida"
+  },
+  "featuring": [
+    "ART AND LIVE MUSIC EVENTS",
+    "MERCHANDISE STORE",
+    "VINTAGE STYLE ARCADE",
+    "EXCLUSIVE SIGNATURE KRATOM TEAS",
+    "EXCLUSIVE SIGNATURE KAVA MOCKTAILS",
+    "KAVA BASED ICE CREAM"
+  ],
+  "features": {
+    "artLiveMusic": {
+      "id": "art-music",
+      "label": "Art & Live Music",
+      "labelDisplay": "ART & LIVE MUSIC",
+      "description": "Live music and art-focused events.",
+      "deckPhrase": "Art and Live Music Events"
+    },
+    "merchandise": {
+      "id": "merchandise",
+      "label": "Merchandise Store",
+      "labelDisplay": "MERCHANDISE STORE",
+      "description": "A dedicated merchandise and collectible retail space.",
+      "deckPhrase": "Merchandise Store"
+    },
+    "arcade": {
+      "id": "arcade",
+      "label": "Vintage Arcade",
+      "labelDisplay": "VINTAGE STYLE ARCADE",
+      "description": "A vintage-style arcade experience.",
+      "deckPhrase": "Vintage Style Arcade"
+    },
+    "kratomTeas": {
+      "id": "kratom-teas",
+      "label": "Signature Kratom Teas",
+      "labelDisplay": "SIGNATURE KRATOM TEAS",
+      "description": "Exclusive signature kratom teas.",
+      "deckPhrase": "Exclusive Signature Kratom Teas"
+    },
+    "kavaMocktails": {
+      "id": "kava-mocktails",
+      "label": "Signature Kava Mocktails",
+      "labelDisplay": "SIGNATURE KAVA MOCKTAILS",
+      "description": "Exclusive signature kava mocktails.",
+      "deckPhrase": "Exclusive Signature Kava Mocktails"
+    },
+    "kavaIceCream": {
+      "id": "kava-ice-cream",
+      "label": "Kava-Based Ice Cream",
+      "labelDisplay": "KAVA-BASED ICE CREAM",
+      "description": "Ice cream incorporating kava.",
+      "deckPhrase": "Kava Based Ice Cream"
+    }
+  },
+  "navigation": [
+    { "id": "lounge", "label": "Lounge", "href": "#lounge" },
+    { "id": "bar", "label": "Bar", "href": "#bar" },
+    { "id": "arcade", "label": "Arcade", "href": "#arcade" },
+    { "id": "merchandise", "label": "Merch", "href": "#merchandise" }
+  ],
+  "scenes": {
+    "arrival": {
+      "id": "top",
+      "featuringLabel": "FEATURING:"
+    },
+    "threshold": {
+      "id": "experience",
+      "eyebrow": "THE EXPERIENCE",
+      "body": "A gothic underground lounge concept combining art, live music, vintage-style arcade entertainment, merchandise, signature kratom teas, signature kava mocktails, and kava-based ice cream."
+    },
+    "lounge": {
+      "id": "lounge",
+      "heading": "THE LOUNGE"
+    },
+    "artMusic": {
+      "id": "art-music",
+      "heading": "ART & LIVE MUSIC",
+      "liveWord": "Live",
+      "description": "Live music and art-focused events."
+    },
+    "bar": {
+      "id": "bar",
+      "heading": "THE BAR",
+      "offerings": ["kratomTeas", "kavaMocktails", "kavaIceCream"]
+    },
+    "arcade": {
+      "id": "arcade",
+      "heading": "THE ARCADE",
+      "plate": "VINTAGE STYLE ARCADE"
+    },
+    "merchandise": {
+      "id": "merchandise",
+      "heading": "MERCHANDISE STORE",
+      "description": "A dedicated merchandise and collectible retail space."
+    },
+    "signOff": {
+      "backToTop": "Back to top"
+    }
+  },
+  "seo": {
+    "title": "The Batcave — Kava & Kratom Lounge | Sanford, FL",
+    "description": "Gothic underground kava & kratom lounge in Sanford, Florida. Art and live music, vintage arcade, merchandise store, signature kratom teas, kava mocktails, and kava-based ice cream.",
+    "ogImage": "/assets/environment/exterior-desktop.webp"
+  }
+}

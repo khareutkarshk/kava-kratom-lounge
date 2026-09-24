@@ -1,0 +1,55 @@
+---
+/**
+ * SectionHeading — structural heading stack using type tokens.
+ * Pass content via slots; do not invent marketing copy here.
+ */
+type TitleSize = 'display-xl' | 'display-lg' | 'display-md' | 'heading-lg' | 'heading-md';
+
+interface Props {
+	as?: 'h1' | 'h2' | 'h3' | 'h4';
+	titleSize?: TitleSize;
+	align?: 'start' | 'center';
+	class?: string;
+}
+
+const {
+	as: Tag = 'h2',
+	titleSize = 'display-md',
+	align = 'start',
+	class: className,
+} = Astro.props;
+
+const titleClass = {
+	'display-xl': 'display-xl',
+	'display-lg': 'display-lg',
+	'display-md': 'display-md',
+	'heading-lg': 'heading-lg',
+	'heading-md': 'heading-md',
+}[titleSize];
+---
+
+<div
+	class:list={[
+		'flex flex-col gap-3',
+		align === 'center' ? 'items-center text-center' : 'items-start text-left',
+		className,
+	]}
+>
+	{
+		Astro.slots.has('eyebrow') && (
+			<p class="eyebrow">
+				<slot name="eyebrow" />
+			</p>
+		)
+	}
+	<Tag class={titleClass}>
+		<slot name="title" />
+	</Tag>
+	{
+		Astro.slots.has('description') && (
+			<p class="body-lg max-w-reading text-fg-muted">
+				<slot name="description" />
+			</p>
+		)
+	}
+</div>

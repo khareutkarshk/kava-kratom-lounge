@@ -1,0 +1,268 @@
+---
+import ArtImage from '../media/ArtImage.astro';
+import site from '../../data/site';
+import { assets } from '../../data/assets';
+import lounge from '../../assets/images/lounge.webp';
+
+const { lounge: scene } = site.scenes;
+const [titleLead, ...titleRest] = scene.heading.split(/\s+/);
+const titleMain = titleRest.join(' ') || scene.heading;
+---
+
+<section
+	id={scene.id}
+	class="lounge"
+	aria-labelledby="lounge-heading"
+	x-data
+	x-intersect.once="$el.classList.add('is-inview')"
+>
+	<div class="lounge__atmosphere" aria-hidden="true">
+		<div class="lounge__stone"></div>
+		<div class="lounge__wash"></div>
+	</div>
+
+	<div class="lounge__layout">
+		<div class="lounge__sign reveal" x-intersect.once="$el.classList.add('is-visible')">
+			<img
+				src={assets.decorative.lines.verticalCircuit}
+				alt=""
+				class="lounge__rail"
+				aria-hidden="true"
+				loading="lazy"
+				decoding="async"
+			/>
+			<div class="lounge__sign-inner">
+				<h2 id="lounge-heading" class="lounge__title">
+					<span class="lounge__title-the">{titleLead}</span>
+					<span class="lounge__title-main">{titleMain}</span>
+				</h2>
+				<img
+					src={assets.decorative.lines.flourishSweep}
+					alt=""
+					class="lounge__flourish"
+					aria-hidden="true"
+					loading="lazy"
+					decoding="async"
+				/>
+			</div>
+		</div>
+
+		<figure
+			class="lounge__media reveal-image scale-in-scroll"
+			x-intersect.once="$el.classList.add('is-visible')"
+		>
+			<img
+				src={assets.decorative.corner}
+				alt=""
+				class="lounge__corner lounge__corner--tl"
+				aria-hidden="true"
+				loading="lazy"
+				decoding="async"
+			/>
+			<img
+				src={assets.decorative.corner}
+				alt=""
+				class="lounge__corner lounge__corner--br"
+				aria-hidden="true"
+				loading="lazy"
+				decoding="async"
+			/>
+			<ArtImage
+				src={lounge}
+				alt="Cave-inspired lounge interior with purple ambient lighting"
+				class="lounge__img"
+				aspectRatio="16 / 9"
+				mobileAspectRatio="4 / 3"
+				objectPosition="center 42%"
+				mobileObjectPosition="center 48%"
+				sizes="(max-width: 767px) 100vw, 68vw"
+				widths={[640, 960, 1280, 1600, 1920]}
+			/>
+			<div class="lounge__fade" aria-hidden="true"></div>
+		</figure>
+	</div>
+</section>
+
+<style>
+	.lounge {
+		position: relative;
+		isolation: isolate;
+		padding: 4rem 0 4.5rem;
+		overflow: hidden;
+		background: var(--color-void);
+	}
+
+	.lounge__atmosphere {
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+		pointer-events: none;
+	}
+
+	.lounge__stone {
+		position: absolute;
+		inset: 0;
+		opacity: 0.24;
+		background-image: url('/assets/textures/stone.webp');
+		background-size: cover;
+		mix-blend-mode: soft-light;
+	}
+
+	.lounge__wash {
+		position: absolute;
+		inset: 0;
+		background:
+			radial-gradient(ellipse 55% 50% at 72% 48%, rgb(139 44 255 / 0.2), transparent 65%),
+			radial-gradient(ellipse 40% 40% at 18% 40%, rgb(214 168 74 / 0.1), transparent 60%),
+			linear-gradient(to right, rgb(8 7 11 / 0.45) 0%, transparent 38%);
+	}
+
+	.lounge__layout {
+		position: relative;
+		z-index: 1;
+		display: grid;
+		gap: 1.75rem;
+		padding: 0 1.25rem;
+	}
+
+	.lounge__sign {
+		position: relative;
+		display: flex;
+		align-items: stretch;
+		gap: 0.85rem;
+		max-width: 22rem;
+	}
+
+	.lounge__rail {
+		width: 1.35rem;
+		height: auto;
+		align-self: stretch;
+		object-fit: cover;
+		opacity: 0.85;
+		filter: drop-shadow(0 0 10px rgb(139 44 255 / 0.4));
+	}
+
+	.lounge__sign-inner {
+		flex: 1;
+		padding: 1.15rem 1.15rem 1.25rem;
+		background: linear-gradient(150deg, rgb(18 13 24 / 0.9), rgb(8 7 11 / 0.82));
+		border: 1px solid rgb(232 61 255 / 0.42);
+		box-shadow:
+			0 0 0 1px rgb(214 168 74 / 0.2),
+			0 0 28px rgb(139 44 255 / 0.22),
+			0 16px 36px rgb(0 0 0 / 0.45);
+	}
+
+	.lounge__title {
+		margin: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0.15rem;
+		font-family: var(--font-display);
+		line-height: 0.9;
+		letter-spacing: 0.04em;
+	}
+
+	.lounge__title-the {
+		font-size: clamp(1.15rem, 2.4vw, 1.55rem);
+		letter-spacing: 0.28em;
+		color: var(--color-warm);
+		text-shadow: 0 0 12px rgb(214 168 74 / 0.45);
+	}
+
+	.lounge__title-main {
+		font-size: clamp(2.75rem, 9vw, 4.5rem);
+		color: var(--color-bone);
+		text-shadow:
+			0 0 22px rgb(232 61 255 / 0.35),
+			0 0 40px rgb(139 44 255 / 0.25),
+			0 2px 18px rgb(0 0 0 / 0.75);
+	}
+
+	.lounge__flourish {
+		display: block;
+		width: min(100%, 200px);
+		height: auto;
+		margin-top: 0.85rem;
+		opacity: 0.85;
+		filter: drop-shadow(0 0 8px rgb(232 61 255 / 0.3));
+	}
+
+	.lounge__media {
+		position: relative;
+		margin: 0;
+		width: 100%;
+		border: 1px solid rgb(139 44 255 / 0.48);
+		background: var(--color-void);
+		box-shadow:
+			0 0 0 1px rgb(8 7 11 / 0.6) inset,
+			0 0 40px rgb(139 44 255 / 0.18),
+			0 24px 50px rgb(0 0 0 / 0.5);
+		overflow: hidden;
+	}
+
+	.lounge__img {
+		width: 100%;
+		display: block;
+	}
+
+	.lounge__corner {
+		position: absolute;
+		z-index: 2;
+		width: min(26%, 120px);
+		height: auto;
+		pointer-events: none;
+		filter: drop-shadow(0 0 10px rgb(139 44 255 / 0.35));
+	}
+
+	.lounge__corner--tl {
+		top: -5%;
+		left: -3%;
+	}
+
+	.lounge__corner--br {
+		right: -3%;
+		bottom: -5%;
+		transform: rotate(180deg);
+	}
+
+	.lounge__fade {
+		position: absolute;
+		inset: auto 0 0;
+		height: 28%;
+		background: linear-gradient(to top, var(--color-void), transparent);
+		pointer-events: none;
+		z-index: 1;
+	}
+
+	@media (min-width: 768px) {
+		.lounge {
+			padding: 5.5rem 0 6.5rem;
+		}
+
+		.lounge__layout {
+			grid-template-columns: minmax(14rem, 20rem) minmax(0, 1fr);
+			align-items: center;
+			gap: 2.5rem;
+			padding: 0 3rem 0 3.5rem;
+			min-height: 0;
+		}
+
+		.lounge__sign {
+			max-width: none;
+		}
+
+		.lounge__title-main {
+			font-size: clamp(3.25rem, 5.5vw, 5.5rem);
+		}
+
+		.lounge__media {
+			width: 100%;
+			margin-right: -1rem;
+		}
+
+		.lounge__corner {
+			width: min(22%, 150px);
+		}
+	}
+</style>

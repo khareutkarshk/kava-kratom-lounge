@@ -9,12 +9,27 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "prepare:assets": ".venv-assets/bin/python scripts/prepare-assets.py",
+    "prepare:decorative": ".venv-assets/bin/python scripts/crop-decorative-rasters.py"
   },
   "dependencies": {
+    "@astrojs/alpinejs": "^1.0.0",
+    "@fontsource-variable/space-grotesk": "^5.3.0",
+    "@fontsource/bebas-neue": "^5.3.0",
+    "@fontsource/pirata-one": "^5.3.0",
+    "@lucide/astro": "^1.47.0",
+    "alpinejs": "^3.17.4",
     "astro": "^7.3.4"
   },
   "allowScripts": {
     "esbuild": true
+  },
+  "devDependencies": {
+    "@alpinejs/intersect": "^3.17.4",
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/alpinejs": "^3.13.11",
+    "sharp": "^0.35.4",
+    "tailwindcss": "^4.3.3"
   }
 }

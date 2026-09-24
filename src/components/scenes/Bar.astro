@@ -1,0 +1,65 @@
+---
+import ArtImage from '../media/ArtImage.astro';
+import site from '../../data/site';
+import { assets } from '../../data/assets';
+import bar from '../../assets/images/bar.webp';
+
+const { bar: scene } = site.scenes;
+const offerings = scene.offerings.map((key) => site.features[key as keyof typeof site.features]);
+const [titleLead, ...titleRest] = scene.heading.split(/\s+/);
+const titleMain = titleRest.join(' ') || scene.heading;
+---
+
+<section id={scene.id} class="bar" aria-labelledby="bar-heading" x-data>
+	<div class="bar__texture" aria-hidden="true"></div>
+	<div class="bar__panorama reveal-image" x-intersect.once="$el.classList.add('is-visible')">
+		<ArtImage
+			src={bar}
+			alt="The Batcave bar with warm and purple ambient lighting"
+			aspectRatio="21 / 6"
+			mobileAspectRatio="16 / 9"
+			objectPosition="center 40%"
+			sizes="100vw"
+			widths={[640, 960, 1280, 1600, 1920]}
+		/>
+		<div class="bar__panorama-fade" aria-hidden="true"></div>
+	</div>
+
+	<div class="bar__board">
+		<header class="bar__masthead reveal" x-intersect.once="$el.classList.add('is-visible')">
+			<span class="bar__mark" aria-hidden="true"></span>
+			<div class="bar__heading">
+				<h2 id="bar-heading" class="bar__title">
+					<span class="bar__title-lead">{titleLead}</span>
+					<span class="bar__title-main">{titleMain}</span>
+				</h2>
+				<img
+					src={assets.decorative.lines.flourishSweep}
+					alt=""
+					class="bar__flourish"
+					aria-hidden="true"
+					loading="lazy"
+					decoding="async"
+				/>
+			</div>
+		</header>
+
+		<ol class="bar__menu">
+			{
+				offerings.map((item, i) => (
+					<li
+						class="bar__item reveal"
+						x-intersect.once="$el.classList.add('is-visible')"
+						style={`transition-delay: ${i * 80}ms`}
+					>
+						<span class="bar__index" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+						<div class="bar__item-copy">
+							<h3 class="bar__item-title">{item.labelDisplay}</h3>
+							<p class="bar__item-desc">{item.description}</p>
+						</div>
+					</li>
+				))
+			}
+		</ol>
+	</div>
+</section>

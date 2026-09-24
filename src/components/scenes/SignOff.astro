@@ -1,0 +1,118 @@
+---
+import site from '../../data/site';
+import { assets } from '../../data/assets';
+
+const { signOff } = site.scenes;
+---
+
+<footer class="signoff" aria-label="Site footer">
+	<img
+		src={assets.decorative.bat}
+		alt=""
+		class="signoff__bat"
+		aria-hidden="true"
+		loading="lazy"
+		decoding="async"
+	/>
+
+	<div class="signoff__inner reveal" x-data x-intersect.once="$el.classList.add('is-visible')">
+		<img
+			src={assets.brand.logoMark}
+			alt=""
+			class="signoff__mark"
+			width="120"
+			height="120"
+			loading="lazy"
+			decoding="async"
+		/>
+		<p class="display-md signoff__name">{site.brand.nameDisplay}</p>
+		<p class="label signoff__descriptor">{site.brand.descriptorDisplay}</p>
+		<img
+			src={assets.decorative.lines.dividerOrnate}
+			alt=""
+			class="signoff__divider"
+			aria-hidden="true"
+			loading="lazy"
+			decoding="async"
+		/>
+		<p class="body-sm signoff__place">{site.location.display}</p>
+		<a href="#top" class="label link-draw signoff__top">{signOff.backToTop}</a>
+	</div>
+</footer>
+
+<style>
+	.signoff {
+		position: relative;
+		isolation: isolate;
+		min-height: 70dvh;
+		display: grid;
+		place-items: center;
+		padding: 5rem 1.25rem 4rem;
+		overflow: hidden;
+		background: var(--color-void);
+		text-align: center;
+	}
+
+	.signoff__bat {
+		position: absolute;
+		inset: 50% auto auto 50%;
+		transform: translate(-50%, -52%);
+		width: min(70vw, 520px);
+		opacity: 0.12;
+		pointer-events: none;
+		z-index: 0;
+	}
+
+	.signoff__inner {
+		position: relative;
+		z-index: 1;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.75rem;
+	}
+
+	.signoff__mark {
+		width: 5.5rem;
+		height: auto;
+		margin-bottom: 0.5rem;
+	}
+
+	.signoff__name {
+		margin: 0;
+	}
+
+	.signoff__descriptor {
+		margin: 0;
+		color: var(--color-smoke);
+	}
+
+	.signoff__divider {
+		width: min(90vw, 420px);
+		height: auto;
+		margin: 1.25rem 0 0.5rem;
+		opacity: 0.9;
+	}
+
+	.signoff__place {
+		margin: 0;
+		color: var(--color-smoke);
+	}
+
+	.signoff__top {
+		margin-top: 1.75rem;
+		text-decoration: none;
+		color: var(--color-bone);
+	}
+
+	@media (min-width: 768px) {
+		.signoff {
+			min-height: 80dvh;
+			padding: 8rem 3.5rem 6rem;
+		}
+
+		.signoff__mark {
+			width: 7rem;
+		}
+	}
+</style>

@@ -1,11 +1,44 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import SiteNav from '../components/site/SiteNav.astro';
+import Arrival from '../components/scenes/Arrival.astro';
+import Threshold from '../components/scenes/Threshold.astro';
+import Lounge from '../components/scenes/Lounge.astro';
+import AfterDark from '../components/scenes/AfterDark.astro';
+import Bar from '../components/scenes/Bar.astro';
+import Arcade from '../components/scenes/Arcade.astro';
+import Merch from '../components/scenes/Merch.astro';
+import SignOff from '../components/scenes/SignOff.astro';
 ---
 
 <Layout>
-	<Welcome />
+	<a class="skip-link label" href="#experience">Skip to content</a>
+	<SiteNav />
+	<main id="main">
+		<Arrival />
+		<Threshold />
+		<Lounge />
+		<AfterDark />
+		<Bar />
+		<Arcade />
+		<Merch />
+		<SignOff />
+	</main>
 </Layout>
+
+<style>
+	.skip-link {
+		position: absolute;
+		left: 1rem;
+		top: -100px;
+		z-index: 100;
+		padding: 0.65rem 1rem;
+		background: var(--color-violet);
+		color: var(--color-bone);
+		text-decoration: none;
+	}
+
+	.skip-link:focus {
+		top: 1rem;
+	}
+</style>

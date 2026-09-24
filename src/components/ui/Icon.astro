@@ -1,0 +1,40 @@
+---
+/**
+ * Icon — thin wrapper around @lucide/astro components.
+ * Pass a Lucide Astro icon component via the `icon` prop.
+ * Do not use Lucide for the main brand mark.
+ *
+ * @example
+ * import Icon from './Icon.astro';
+ * import { ArrowRight } from '@lucide/astro';
+ * <Icon icon={ArrowRight} size={20} />
+ */
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends Omit<HTMLAttributes<'svg'>, 'size'> {
+	/** Lucide Astro icon component */
+	icon: any;
+	size?: number;
+	strokeWidth?: number;
+	class?: string;
+	'aria-hidden'?: boolean | 'true' | 'false';
+	'aria-label'?: string;
+}
+
+const {
+	icon: LucideIcon,
+	size = 24,
+	strokeWidth = 1.75,
+	class: className,
+	'aria-hidden': ariaHidden = true,
+	...rest
+} = Astro.props;
+---
+
+<LucideIcon
+	size={size}
+	stroke-width={strokeWidth}
+	class:list={['shrink-0', className]}
+	aria-hidden={ariaHidden}
+	{...rest}
+/>

@@ -1,0 +1,46 @@
+---
+import ArtImage from '../media/ArtImage.astro';
+import site from '../../data/site';
+import gothLounge from '../../assets/images/goth-lounge.webp';
+
+const { artMusic } = site.scenes;
+---
+
+<section
+	id={artMusic.id}
+	class="after-dark"
+	aria-labelledby="art-music-heading"
+	x-data
+>
+	<div class="after-dark__wash" aria-hidden="true"></div>
+
+	<div class="after-dark__layout">
+		<figure class="after-dark__media">
+			<ArtImage
+				src={gothLounge}
+				alt="Gothic lounge atmosphere with neon lighting"
+				class="after-dark__img"
+				aspectRatio="1 / 1"
+				mobileAspectRatio="4 / 3"
+				objectPosition="center 25%"
+				mobileObjectPosition="center 20%"
+				sizes="(max-width: 767px) 100vw, 46vw"
+				widths={[480, 720, 960, 1200]}
+			/>
+		</figure>
+
+		<div class="after-dark__copy reveal" x-intersect.once="$el.classList.add('is-visible')">
+			<div class="after-dark__rail" aria-hidden="true"></div>
+
+			<div class="after-dark__sign">
+				<h2 id="art-music-heading" class="after-dark__title">
+					<span class="after-dark__lead">ART &amp;</span>
+					<span class="decorative after-dark__live">{artMusic.liveWord}</span>
+					<span class="after-dark__tail">MUSIC</span>
+				</h2>
+
+				<p class="after-dark__desc">{artMusic.description}</p>
+			</div>
+		</div>
+	</div>
+</section>

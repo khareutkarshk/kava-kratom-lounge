@@ -1,0 +1,74 @@
+---
+import ArtImage from '../media/ArtImage.astro';
+import site from '../../data/site';
+import { assets } from '../../data/assets';
+import merchStore from '../../assets/images/merch-store.webp';
+
+const { merchandise } = site.scenes;
+const [titleLead, ...titleRest] = merchandise.heading.split(/\s+/);
+const titleMain = titleRest.join(' ') || merchandise.heading;
+---
+
+<section
+	id={merchandise.id}
+	class="merch"
+	aria-labelledby="merch-heading"
+	x-data
+>
+	<div class="merch__wash" aria-hidden="true"></div>
+
+	<div class="merch__layout">
+		<figure class="merch__frame">
+			<div class="merch__media">
+				<ArtImage
+					src={merchStore}
+					alt="Merchandise and collectible retail space inside The Batcave"
+					class="merch__img"
+					aspectRatio="4 / 3"
+					objectPosition="center"
+					sizes="(max-width: 767px) 100vw, 55vw"
+					widths={[640, 960, 1280, 1600]}
+				/>
+			</div>
+			<img
+				src={assets.decorative.corner}
+				alt=""
+				class="merch__corner merch__corner--tl"
+				width="1221"
+				height="1268"
+				aria-hidden="true"
+				loading="lazy"
+				decoding="async"
+			/>
+			<img
+				src={assets.decorative.corner}
+				alt=""
+				class="merch__corner merch__corner--br"
+				width="1221"
+				height="1268"
+				aria-hidden="true"
+				loading="lazy"
+				decoding="async"
+			/>
+		</figure>
+
+		<div class="merch__copy reveal" x-intersect.once="$el.classList.add('is-visible')">
+			<div class="merch__rail" aria-hidden="true"></div>
+			<div class="merch__sign">
+				<img
+					src={assets.decorative.lines.dividerWave}
+					alt=""
+					class="merch__wave"
+					aria-hidden="true"
+					loading="lazy"
+					decoding="async"
+				/>
+				<h2 id="merch-heading" class="merch__title">
+					<span class="merch__title-lead">{titleLead}</span>
+					<span class="merch__title-main">{titleMain}</span>
+				</h2>
+				<p class="merch__desc">{merchandise.description}</p>
+			</div>
+		</div>
+	</div>
+</section>
