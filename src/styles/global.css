@@ -310,6 +310,16 @@
 			transform: translateY(0);
 		}
 
+		/* GSAP owns these when the motion script is running */
+		html.motion .reveal,
+		html.motion .reveal.is-visible {
+			transition: none;
+		}
+
+		html.motion section.arrival .arrival__intro {
+			animation: none;
+		}
+
 		/* Visible by default — animate only when Alpine marks it, so failed intersect never blanks photos */
 		.reveal-image.is-visible {
 			animation: reveal-image-in 1s cubic-bezier(0.22, 1, 0.36, 1) both;
