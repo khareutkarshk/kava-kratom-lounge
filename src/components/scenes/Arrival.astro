@@ -7,7 +7,7 @@ import exteriorMobile from '../../assets/images/exterior-mobile.webp';
 const { arrival } = site.scenes;
 ---
 
-<section id={arrival.id} class="arrival" aria-label={site.brand.nameDisplay}>
+<section id={arrival.id} class="arrival" aria-label={site.brand.nameDisplay} x-data>
 	<h1 class="sr-only">
 		{site.brand.name} — {site.brand.descriptor} in {site.location.display}
 	</h1>
@@ -51,7 +51,11 @@ const { arrival } = site.scenes;
 				<ul class="arrival__featuring-list">
 					{
 						site.featuring.map((item, i) => (
-							<li>
+							<li
+								class="reveal"
+								style={`transition-delay: ${i * 70}ms`}
+								x-intersect.once="$el.classList.add('is-visible')"
+							>
 								<span class="arrival__featuring-index" aria-hidden="true">
 									{String(i + 1).padStart(2, '0')}
 								</span>

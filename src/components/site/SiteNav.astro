@@ -1,15 +1,15 @@
 ---
 import site from '../../data/site';
 import { assets } from '../../data/assets';
+
+const activeClass = (id: string) => `{ 'is-active': active === '${id}' }`;
+const activeCurrent = (id: string) => `active === '${id}' ? 'page' : false`;
 ---
 
 <header
 	class="site-nav"
 	x-data="siteNav"
-	:class="{
-		'site-nav--scrolled': scrolled,
-		'site-nav--hidden': hidden && !menuOpen
-	}"
+	:class={"{ 'site-nav--scrolled': scrolled, 'site-nav--hidden': hidden && !menuOpen }"}
 >
 	<div class="site-nav__inner">
 		<a href="#top" class="site-nav__brand" aria-label={site.brand.nameDisplay}>
@@ -29,7 +29,12 @@ import { assets } from '../../data/assets';
 				site.navigation.map((item, i) => (
 					<>
 						{i > 0 && <span class="site-nav__sep" aria-hidden="true" />}
-						<a href={item.href} class="nav-signage link-draw site-nav__link">
+						<a
+							href={item.href}
+							class="nav-signage link-draw site-nav__link"
+							:class={activeClass(item.id)}
+							:aria-current={activeCurrent(item.id)}
+						>
 							{item.label}
 						</a>
 					</>
@@ -48,36 +53,32 @@ import { assets } from '../../data/assets';
 		</button>
 	</div>
 
-	<div
-		id="mobile-menu"
-		class="site-nav__overlay"
-		x-show="menuOpen"
-		x-cloak
-		x-transition:enter="transition ease-out duration-300"
-		x-transition:enter-start="opacity-0"
-		x-transition:enter-end="opacity-100"
-		x-transition:leave="transition ease-in duration-200"
-		x-transition:leave-start="opacity-100"
-		x-transition:leave-end="opacity-0"
-		@click.self="closeMenu()"
-		role="dialog"
-		aria-modal="true"
-		aria-label="Menu"
-	>
-		<nav class="site-nav__overlay-nav" aria-label="Mobile">
-			{
-				site.navigation.map((item) => (
-					<a
-						href={item.href}
-						class="site-nav__overlay-link display-md"
-						@click="closeMenu()"
-					>
-						{item.label}
-					</a>
-				))
-			}
-		</nav>
-	</div>
+	<template x-if="menuOpen">
+		<div
+			id="mobile-menu"
+			class="site-nav__overlay"
+			x-transition.opacity.duration.280ms
+			@click.self="closeMenu()"
+			role="dialog"
+			aria-modal="true"
+			aria-label="Menu"
+		>
+			<nav class="site-nav__overlay-nav" aria-label="Mobile">
+				{
+					site.navigation.map((item) => (
+						<a
+							href={item.href}
+							class="site-nav__overlay-link display-md"
+							:class={activeClass(item.id)}
+							@click="closeMenu()"
+						>
+							{item.label}
+						</a>
+					))
+				}
+			</nav>
+		</div>
+	</template>
 </header>
 
 <style>
@@ -87,9 +88,9 @@ import { assets } from '../../data/assets';
 		z-index: 70;
 		padding: 1rem 1.25rem;
 		transition:
-			transform 0.35s ease,
-			background-color 0.35s ease,
-			border-color 0.35s ease;
+			transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+			background-color 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+			border-color 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 		border-bottom: 1px solid transparent;
 	}
 
@@ -158,10 +159,17 @@ import { assets } from '../../data/assets';
 		text-decoration: none;
 		font-size: 0.85rem;
 		letter-spacing: 0.12em;
+		transition: color 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 	}
 
-	.site-nav__link:hover {
+	.site-nav__link:hover,
+	.site-nav__link.is-active {
 		color: var(--color-bone);
+	}
+
+	.site-nav__link.is-active {
+		color: var(--color-magenta);
+		background-size: 100% 1px;
 	}
 
 	.site-nav__sep {
@@ -177,6 +185,15 @@ import { assets } from '../../data/assets';
 		padding: 0.45rem 0.85rem;
 		border-radius: 2px;
 		cursor: pointer;
+		transition:
+			border-color 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+			box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+			color 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	.site-nav__menu-btn:hover {
+		border-color: rgb(232 61 255 / 0.7);
+		box-shadow: 0 0 16px rgb(232 61 255 / 0.28);
 	}
 
 	@media (min-width: 768px) {
@@ -208,10 +225,42 @@ import { assets } from '../../data/assets';
 	.site-nav__overlay-link {
 		text-decoration: none;
 		color: var(--color-bone);
+		transition: color 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 	}
 
-	.site-nav__overlay-link:hover {
-		color: var(--color-violet);
+	.site-nav__overlay-link:hover,
+	.site-nav__overlay-link.is-active {
+		color: var(--color-magenta);
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		.site-nav__overlay-link {
+			animation: nav-link-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+		}
+
+		.site-nav__overlay-link:nth-child(1) {
+			animation-delay: 0.04s;
+		}
+		.site-nav__overlay-link:nth-child(2) {
+			animation-delay: 0.1s;
+		}
+		.site-nav__overlay-link:nth-child(3) {
+			animation-delay: 0.16s;
+		}
+		.site-nav__overlay-link:nth-child(4) {
+			animation-delay: 0.22s;
+		}
+	}
+
+	@keyframes nav-link-in {
+		from {
+			opacity: 0;
+			transform: translateY(12px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
 	}
 
 	[x-cloak] {
